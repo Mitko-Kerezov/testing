@@ -41739,6 +41739,7 @@ var Popup = (function (_super) {
     function Popup() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._open = false;
+        _this._viewController = null;
         return _this;
     }
     Popup.prototype.open = function (url, options) {
@@ -41766,16 +41767,20 @@ var Popup = (function (_super) {
         });
         // Show the view controller
         var app = utils.ios.getter(UIApplication, UIApplication.sharedApplication);
-        app.keyWindow.rootViewController.presentViewControllerAnimatedCompletion(sfc, true, null);
+        this._viewController = app.keyWindow.rootViewController;
+        // Get the topmost view controller
+        while (this._viewController.presentedViewController) {
+            this._viewController = this._viewController.presentedViewController;
+        }
+        this._viewController.presentViewControllerAnimatedCompletion(sfc, true, null);
         // Set open to true
         this._open = true;
         // Return this
         return this;
     };
     Popup.prototype.close = function () {
-        if (this._open) {
-            var app = utils.ios.getter(UIApplication, UIApplication.sharedApplication);
-            app.keyWindow.rootViewController.dismissViewControllerAnimatedCompletion(true, null);
+        if (this._open && this._viewController) {
+            this._viewController.dismissViewControllerAnimatedCompletion(true, null);
         }
         return this;
     };
