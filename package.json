@@ -10,7 +10,7 @@
   "dependencies": {
     "nativescript-hook": "0.2.4",
     "nativescript-sqlite": "latest",
-    "nativescript-urlhandler": "^1.2.2",
+    "nativescript-urlhandler": "https://github.com/NativeScript/nativescript-urlhandler/tarball/release",
     "rxjs": "~6.2.2"
   },
   "files": [

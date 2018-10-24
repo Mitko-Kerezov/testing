@@ -6653,7 +6653,7 @@ var _class = function () {
   }, {
     key: 'getVersion',
     value: function getVersion() {
-      return '4.21.2';
+      return '4.21.6';
     }
   }, {
     key: '_decideUUID',
@@ -34805,12 +34805,17 @@ function xdr(method, url, params, body, endpoint, callback) {
   var status = {};
   status.operation = endpoint.operation;
 
-  return (0, _http.request)({
+  var httpConfig = {
     method: method,
     url: (0, _utils.buildUrl)(url, params),
-    content: body,
     timeout: endpoint.timeout
-  }).then(function (response) {
+  };
+
+  if (method === 'GET') {
+    httpConfig.content = body;
+  }
+
+  return (0, _http.request)(httpConfig).then(function (response) {
     status.error = false;
 
     if (response.statusCode) {

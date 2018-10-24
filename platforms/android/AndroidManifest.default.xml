@@ -3,7 +3,7 @@
 	<application android:name="com.tns.NativeScriptApplication">
 		<activity
 			android:name="com.tns.NativeScriptActivity"
-			android:launchMode="singleInstance">
+			android:launchMode="singleTask">
 
 			<intent-filter>
 				<data android:scheme="{redirectUriScheme}" />
